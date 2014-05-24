@@ -46,15 +46,15 @@ XY3_test_train <- XY2_test_train[,c(1,70,2,3:69)]
 ##average of each variable for each activity and each subject. 
 ## delete the labels_names 
 XY4_test_train <- XY3_test_train[,c(1,3:70)] 
-XY4_test_train <-aggregate(XY4_test_train[,c(3:69)],by=list(labels_ID=XY4_test_train$labels_ID,subject=XY4_test_train$subject),FUN=mean)
+XY5_test_train <-aggregate(XY4_test_train[,c(3:69)],by=list(labels_ID=XY4_test_train$labels_ID,subject=XY4_test_train$subject),FUN=mean)
 
 ## add the labels_names back  
-XY5_test_train <-merge.data.frame(x=activity_labels,y=XY4_test_train,by.x="labels_ID",by.y="labels_ID",sort=F)
+XY6_test_train <-merge.data.frame(x=activity_labels,y=XY5_test_train,by.x="labels_ID",by.y="labels_ID",sort=F)
 
 ## order the tidy data 
-XY6_test_train <-XY5_test_train[order(XY5_test_train$labels_ID,XY5_test_train$subject),]
-rownames(XY6_test_train) <-c()
+XY7_test_train <-XY6_test_train[order(XY6_test_train$labels_ID,XY6_test_train$subject),]
+rownames(XY7_test_train) <-c()
 
 #outcome
 write.table(XY3_test_train, "c:/tidydata1.txt", sep="\t")
-write.table(XY6_test_train, "c:/tidydatamean.txt", sep="\t")
+write.table(XY7_test_train, "c:/tidydatamean.txt", sep="\t")
